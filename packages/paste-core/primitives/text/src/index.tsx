@@ -1,6 +1,7 @@
 import * as PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {compose, space, display, verticalAlign, overflow, typography, system} from 'styled-system';
+import css from '@styled-system/css';
 import {CursorProperty} from 'csstype';
 import {
   SpaceProps,
@@ -16,13 +17,23 @@ import {
   isTextColorTokenProp,
   ResponsiveProp,
 } from '@twilio-paste/style-props';
+import {TextPseudoPropStyles} from './TextPseudoPropStyles';
 
-export interface TextProps extends React.HTMLAttributes<any>, SpaceProps, OverflowProps, TypographyProps {
+interface BaseTextProps extends React.HTMLAttributes<any>, SpaceProps, OverflowProps, TypographyProps {
   as: keyof JSX.IntrinsicElements;
   display?: Display;
   verticalAlign?: VerticalAlign;
   cursor?: CursorProperty;
 }
+
+interface PseudoStylesProps {
+  _focus?: BaseTextProps;
+  _hover?: BaseTextProps;
+  _active?: BaseTextProps;
+  _visited?: BaseTextProps;
+}
+
+export interface TextProps extends BaseTextProps, PseudoStylesProps {}
 
 const extraConfig = system({
   textColor: {
@@ -31,7 +42,23 @@ const extraConfig = system({
   },
   cursor: true,
 });
+
 const textDecoration = system({textDecoration: true});
+
+const getPseudoStyles = (props: TextProps): {} => {
+  const pseudoProps = Object.keys(props).filter(propName => propName.startsWith('_'));
+
+  if (pseudoProps.length === 0) {
+    return {};
+  }
+
+  const pseudoStyles = {};
+  pseudoProps.forEach(pseudoProp => {
+    pseudoStyles[TextPseudoPropStyles[pseudoProp]] = props[pseudoProp];
+  });
+
+  return css(pseudoStyles);
+};
 
 const Text = styled.span(
   {
@@ -46,13 +73,15 @@ const Text = styled.span(
     textDecoration,
     typography,
     extraConfig
-  )
+  ),
+  getPseudoStyles
   // we do this because the default typings of emotion styled
   // means Text gets typed as a span, and can't be extended
   // correctly to utilise the as prop. The new HTML element attributes
   // always clash with the span html attributes. To override this,
   // we retype as a basic functional component which is easy to extend
 ) as React.FC<TextProps>;
+
 Text.displayName = 'Text';
 
 Text.defaultProps = {
