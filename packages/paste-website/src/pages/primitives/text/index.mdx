@@ -130,6 +130,18 @@ same order.
 </Text>`}
 </LivePreview>
 
+### Tokens as pseudo-class props
+
+To view the full list of pseudo-class props, check the [props table](/primitives/text#props).
+
+<LivePreview scope={{Text}} language="jsx">
+  {`<Text
+  _hover={{color: 'colorTextLink', cursor: "pointer"}}
+>
+Hover over me!
+</Text>`}
+</LivePreview>
+
 ## When to use Text
 
 There are many pre-styled text components in Paste. For example, [Heading](/components/heading), [Paragraph](/components/paragraph) and InputLabel. You should use
@@ -238,6 +250,9 @@ All the regular HTML attributes (`role`, `aria-*`, `type`, and so on) including 
 | textDecoration? | `ResponsiveValue<CSS.TextDecorationProperty<CSS.TextDecorationLineProperty>>` |                           |         |
 | textOverflow?   | `ResponsiveValue<CSS.TextOverflowProperty>`                                   |                           |         |
 | whitespce?      | `ResponsiveValue<CSS.WhiteSpaceProperty>`                                     |                           |         |
+| _hover?         | TextProps                                                                     |                           |         |
+| _active?        | TextProps                                                                     |                           |         |
+| _focus?         | TextProps                                                                     |                           |         |
 
 <Box marginTop="space90">
   <Changelog />
