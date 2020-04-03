@@ -17,10 +17,9 @@ import {
   isTextColorTokenProp,
   ResponsiveProp,
 } from '@twilio-paste/style-props';
-import {TextPseudoPropStyles} from './TextPseudoPropStyles';
+import {PseudoPropStyles} from './PseudoPropStyles';
 
-interface BaseTextProps extends React.HTMLAttributes<any>, SpaceProps, OverflowProps, TypographyProps {
-  as: keyof JSX.IntrinsicElements;
+interface BaseTextProps extends Omit<React.HTMLAttributes<any>, 'color'>, SpaceProps, OverflowProps, TypographyProps {
   display?: Display;
   verticalAlign?: VerticalAlign;
   cursor?: CursorProperty;
@@ -30,13 +29,14 @@ interface PseudoStylesProps {
   _focus?: BaseTextProps;
   _hover?: BaseTextProps;
   _active?: BaseTextProps;
-  _visited?: BaseTextProps;
 }
 
-export interface TextProps extends BaseTextProps, PseudoStylesProps {}
+export interface TextProps extends BaseTextProps, PseudoStylesProps {
+  as: keyof JSX.IntrinsicElements;
+}
 
 const extraConfig = system({
-  textColor: {
+  color: {
     property: 'color',
     scale: 'textColors',
   },
@@ -54,12 +54,14 @@ const getPseudoStyles = (props: TextProps): {} => {
 
   const pseudoStyles = {};
   pseudoProps.forEach(pseudoProp => {
-    pseudoStyles[TextPseudoPropStyles[pseudoProp]] = props[pseudoProp];
+    pseudoStyles[PseudoPropStyles[pseudoProp]] = props[pseudoProp];
   });
 
   return css(pseudoStyles);
 };
 
+/* eslint-disable emotion/syntax-preference */
+// @ts-ignore
 const Text = styled.span(
   {
     margin: 0,
@@ -81,13 +83,14 @@ const Text = styled.span(
   // always clash with the span html attributes. To override this,
   // we retype as a basic functional component which is easy to extend
 ) as React.FC<TextProps>;
+/* eslint-enable */
 
 Text.displayName = 'Text';
 
 Text.defaultProps = {
   fontSize: 'fontSize30',
   lineHeight: 'lineHeight30',
-  textColor: 'colorText',
+  color: 'colorText',
 };
 
 if (process.env.NODE_ENV === 'development') {
@@ -115,7 +118,7 @@ if (process.env.NODE_ENV === 'development') {
     overflowX: ResponsiveProp(PropTypes.string),
     overflowY: ResponsiveProp(PropTypes.string),
     textAlign: ResponsiveProp(PropTypes.string),
-    textColor: isTextColorTokenProp,
+    color: isTextColorTokenProp,
     textDecoration: ResponsiveProp(PropTypes.string),
     textOverflow: ResponsiveProp(PropTypes.string),
     verticalAlign: ResponsiveProp(PropTypes.string),
@@ -124,4 +127,5 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export {Text};
+
 export * from './SafelySpreadProps';

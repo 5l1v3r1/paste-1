@@ -520,13 +520,13 @@ describe('textAlign', () => {
   });
 });
 
-describe('textColor', () => {
-  it('should set a textColor property', (): void => {
+describe('color', () => {
+  it('should set a color property', (): void => {
     const tree = renderer
       .create(
         <Theme.Provider theme="console">
-          <Text as="span" textColor="colorText">
-            textColor single
+          <Text as="span" color="colorText">
+            color single
           </Text>
         </Theme.Provider>
       )
@@ -534,12 +534,12 @@ describe('textColor', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('should set a responsive textColor property', (): void => {
+  it('should set a responsive color property', (): void => {
     const tree = renderer
       .create(
         <Theme.Provider theme="console">
-          <Text as="span" textColor={['colorTextError', 'colorTextSuccess']}>
-            textColor responsive
+          <Text as="span" color={['colorTextError', 'colorTextSuccess']}>
+            color responsive
           </Text>
         </Theme.Provider>
       )
