@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import {compose, space, display, verticalAlign, overflow, typography, system} from 'styled-system';
+import {compose, space, display, verticalAlign, overflow, typography, system, position} from 'styled-system';
 import css from '@styled-system/css';
 import {CursorProperty} from 'csstype';
 import {
@@ -8,6 +8,7 @@ import {
   Display,
   VerticalAlign,
   OverflowProps,
+  PositionProps,
   TypographyProps,
   isFontFamilyTokenProp,
   isFontSizeTokenProp,
@@ -19,16 +20,41 @@ import {
 } from '@twilio-paste/style-props';
 import {PseudoPropStyles} from './PseudoPropStyles';
 
-interface BaseTextProps extends Omit<React.HTMLAttributes<any>, 'color'>, SpaceProps, OverflowProps, TypographyProps {
+interface BaseTextProps
+  extends Omit<React.HTMLAttributes<any>, 'color'>,
+    SpaceProps,
+    OverflowProps,
+    PositionProps,
+    TypographyProps {
+  content?: string;
+  cursor?: CursorProperty;
   display?: Display;
   verticalAlign?: VerticalAlign;
-  cursor?: CursorProperty;
 }
 
 interface PseudoStylesProps {
+  _after?: BaseTextProps;
+  _before?: BaseTextProps;
   _focus?: BaseTextProps;
   _hover?: BaseTextProps;
   _active?: BaseTextProps;
+  _pressed?: BaseTextProps;
+  _selected?: BaseTextProps;
+  _focusWithin?: BaseTextProps;
+  _invalid?: BaseTextProps;
+  _disabled?: BaseTextProps;
+  _grabbed?: BaseTextProps;
+  _expanded?: BaseTextProps;
+  _checked?: BaseTextProps;
+  _mixed?: BaseTextProps;
+  _odd?: BaseTextProps;
+  _even?: BaseTextProps;
+  _visited?: BaseTextProps;
+  _readOnly?: BaseTextProps;
+  _first?: BaseTextProps;
+  _last?: BaseTextProps;
+  _notFirst?: BaseTextProps;
+  _notLast?: BaseTextProps;
 }
 
 export interface TextProps extends BaseTextProps, PseudoStylesProps {
@@ -72,6 +98,7 @@ const Text = styled.span(
     display,
     verticalAlign,
     overflow,
+    position,
     textDecoration,
     typography,
     extraConfig
@@ -98,6 +125,7 @@ if (process.env.NODE_ENV === 'development') {
     as: PropTypes.string as any,
     display: ResponsiveProp(PropTypes.string),
     cursor: ResponsiveProp(PropTypes.string),
+    content: ResponsiveProp(PropTypes.string),
     fontFamily: isFontFamilyTokenProp,
     fontSize: isFontSizeTokenProp,
     fontStyle: ResponsiveProp(PropTypes.string),

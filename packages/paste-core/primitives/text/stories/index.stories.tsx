@@ -110,7 +110,13 @@ storiesOf('Primitives|Text', module)
   })
   .add('Pseudo-classes with props', () => {
     return (
-      <Text as="p" color="colorTextSuccess" _hover={{color: 'colorTextWarningDark'}}>
+      <Text
+        as="p"
+        color="colorText"
+        _hover={{color: 'colorTextWarningDark'}}
+        _before={{content: `"Before text"`, position: 'absolute', bottom: 0, left: 0, color: 'colorTextErrorDark'}}
+        _after={{content: `"After text"`, position: 'absolute', bottom: 0, right: 0, color: 'colorTextLinkDarker'}}
+      >
         Hover this text
       </Text>
     );
