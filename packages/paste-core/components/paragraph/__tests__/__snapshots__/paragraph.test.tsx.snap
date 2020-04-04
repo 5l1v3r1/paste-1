@@ -5,7 +5,7 @@ exports[`Paragraph it should render a single paragraph 1`] = `
   font-family: 'Whitney SSm A','Whitney SSm B','Helvetica Neue',Helvetica,Arial,sans-serif;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  color: #282a2b;
+  color: rgb(40,42,43);
   font-weight: 400;
 }
 
@@ -22,7 +22,7 @@ exports[`Paragraph it should render a single paragraph 1`] = `
   font-size: 0.875rem;
   line-height: 1.5rem;
   font-weight: 400;
-  color: #282a2b;
+  color: rgb(40,42,43);
 }
 
 <div
@@ -43,7 +43,7 @@ exports[`Paragraph it should render a single paragraph with bold text 1`] = `
   font-family: 'Whitney SSm A','Whitney SSm B','Helvetica Neue',Helvetica,Arial,sans-serif;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  color: #282a2b;
+  color: rgb(40,42,43);
   font-weight: 400;
 }
 
@@ -60,7 +60,7 @@ exports[`Paragraph it should render a single paragraph with bold text 1`] = `
   font-size: 0.875rem;
   line-height: 1.5rem;
   font-weight: 400;
-  color: #282a2b;
+  color: rgb(40,42,43);
 }
 
 <div
@@ -83,7 +83,7 @@ exports[`Paragraph it should render a single paragraph with italic text 1`] = `
   font-family: 'Whitney SSm A','Whitney SSm B','Helvetica Neue',Helvetica,Arial,sans-serif;
   font-size: 0.875rem;
   line-height: 1.5rem;
-  color: #282a2b;
+  color: rgb(40,42,43);
   font-weight: 400;
 }
 
@@ -100,7 +100,7 @@ exports[`Paragraph it should render a single paragraph with italic text 1`] = `
   font-size: 0.875rem;
   line-height: 1.5rem;
   font-weight: 400;
-  color: #282a2b;
+  color: rgb(40,42,43);
 }
 
 <div
