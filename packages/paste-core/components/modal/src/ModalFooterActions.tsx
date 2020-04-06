@@ -12,7 +12,7 @@ const ModalFooterActions: React.FC<ModalFooterActionsProps> = ({children, justif
   return (
     <Box
       display="flex"
-      justifyContent={justify === 'start' ? 'start' : 'end'}
+      justifyContent={justify === 'start' ? 'flex-start' : 'flex-end'}
       flexShrink={justify === 'start' ? null : 0}
       flexWrap="wrap"
       flexGrow={1}
