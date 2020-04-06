@@ -576,42 +576,37 @@ describe('textDecoration', () => {
   });
 });
 
-describe('pseudoProps', () => {
-  it('should set a color _hover pseudo property', (): void => {
-    const tree = renderer
-      .create(
-        <Theme.Provider theme="console">
-          <Text as="span" _hover={{color: 'colorTextLink'}}>
-            _hover text
-          </Text>
-        </Theme.Provider>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('should set an _after pseudo property', (): void => {
+describe('Pseudo-class props', () => {
+  it('it should generate pseudo-class CSS', (): void => {
     const tree = renderer
       .create(
         <Theme.Provider theme="console">
           <Text
             as="span"
-            _after={{content: `"After text"`, position: 'absolute', bottom: 0, right: 0, color: 'colorTextLinkDarker'}}
+            _hover={{color: 'colorTextLink'}}
+            _active={{color: 'colorTextLinkDark'}}
+            _focus={{color: 'colorTextLinkDarker'}}
+            _visited={{color: 'colorTextLinkDestructive'}}
+            _even={{padding: 'space40'}}
+            _odd={{margin: 'space30'}}
+            _disabled={{paddingTop: 'space40'}}
+            _checked={{paddingRight: 'space40'}}
+            _mixed={{paddingBottom: 'space40'}}
+            _selected={{paddingLeft: 'space40'}}
+            _invalid={{marginTop: 'space40'}}
+            _pressed={{marginRight: 'space40'}}
+            _readOnly={{marginBottom: 'space40'}}
+            _first={{marginLeft: 'space40'}}
+            _last={{color: 'colorTextLinkLight'}}
+            _expanded={{color: 'colorTextPlaceholder'}}
+            _grabbed={{color: 'colorTextSuccess'}}
+            _notFirst={{color: 'colorTextWarning'}}
+            _notLast={{color: 'colorTextWarningDark'}}
+            _before={{content: `"Before text"`, position: 'absolute', bottom: 0, left: 0}}
+            _after={{content: `"After text"`, position: 'absolute', bottom: 0, left: 0}}
+            _focusWithin={{color: 'colorTextWeak'}}
           >
-            _after text
-          </Text>
-        </Theme.Provider>
-      )
-      .toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('should set a color _first pseudo property', (): void => {
-    const tree = renderer
-      .create(
-        <Theme.Provider theme="console">
-          <Text as="span" _first={{color: 'colorTextLink'}}>
-            _first text
+            PseudoBox
           </Text>
         </Theme.Provider>
       )
