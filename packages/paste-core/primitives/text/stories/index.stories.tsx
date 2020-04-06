@@ -110,50 +110,14 @@ storiesOf('Primitives|Text', module)
   })
   .add('Pseudo-classes with hover pseudo props', () => {
     return (
-      <Text as="p" color="colorText" _hover={{color: 'colorTextWarningDark', cursor: 'pointer'}}>
-        Hover this text.
-      </Text>
-    );
-  })
-  .add('Pseudo-classes with before/after pseudo props', () => {
-    return (
       <Text
         as="p"
         color="colorText"
+        _hover={{color: 'colorTextWarningDark'}}
         _before={{content: `"Before text"`, position: 'absolute', bottom: 0, left: 0, color: 'colorTextErrorDark'}}
         _after={{content: `"After text"`, position: 'absolute', bottom: 0, right: 0, color: 'colorTextLinkDarker'}}
       >
-        There should be text in the bottom left and bottom right corner.
+        Hover this text
       </Text>
-    );
-  })
-  .add('Pseudo-classes with last pseudo props', () => {
-    return (
-      <>
-        <Text as="p" color="colorText">
-          The text below should be blue.
-        </Text>
-        <Text as="p" color="colorText" _last={{color: 'colorTextLink'}}>
-          This text should be blue.
-        </Text>
-      </>
-    );
-  })
-  .add('Pseudo-classes with odd/even pseudo props', () => {
-    return (
-      <>
-        <Text as="p" color="colorText" _odd={{color: 'colorTextLink'}}>
-          This text should be blue.
-        </Text>
-        <Text as="p" color="colorText" _even={{color: 'colorTextLinkDestructive'}}>
-          This text should be red.
-        </Text>
-        <Text as="p" color="colorText" _odd={{color: 'colorTextLink'}}>
-          This text should be blue.
-        </Text>
-        <Text as="p" color="colorText" _even={{color: 'colorTextLinkDestructive'}}>
-          This text should be red.
-        </Text>
-      </>
     );
   });
