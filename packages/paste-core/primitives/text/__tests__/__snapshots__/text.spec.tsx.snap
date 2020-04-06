@@ -57,10 +57,12 @@ exports[`Pseudo-class props it should generate pseudo-class CSS 1`] = `
   padding-top: 0.75rem;
 }
 
+.emotion-0:checked,
 .emotion-0[aria-checked=true] {
   padding-right: 0.75rem;
 }
 
+.emotion-0:indeterminate,
 .emotion-0[aria-checked=mixed] {
   padding-bottom: 0.75rem;
 }
@@ -69,6 +71,7 @@ exports[`Pseudo-class props it should generate pseudo-class CSS 1`] = `
   padding-left: 0.75rem;
 }
 
+.emotion-0:invalid,
 .emotion-0[aria-invalid=true] {
   margin-top: 0.75rem;
 }
