@@ -1524,6 +1524,130 @@ exports[`paddingTop should set a responsive paddingTop property 1`] = `
 </div>
 `;
 
+exports[`pseudoProps should set a color _first pseudo property 1`] = `
+.emotion-2 {
+  font-family: 'Whitney SSm A','Whitney SSm B','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #282a2b;
+  font-weight: 400;
+}
+
+.emotion-2 *,
+.emotion-2 *::after,
+.emotion-2 *::before {
+  box-sizing: border-box;
+}
+
+.emotion-0 {
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #282a2b;
+}
+
+.emotion-0:first-of-type {
+  color: #005ea6;
+}
+
+<div
+  className="emotion-2"
+>
+  <span
+    className="emotion-0 emotion-1"
+    color="colorText"
+    fontSize="fontSize30"
+  >
+    _first text
+  </span>
+</div>
+`;
+
+exports[`pseudoProps should set a color _hover pseudo property 1`] = `
+.emotion-2 {
+  font-family: 'Whitney SSm A','Whitney SSm B','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #282a2b;
+  font-weight: 400;
+}
+
+.emotion-2 *,
+.emotion-2 *::after,
+.emotion-2 *::before {
+  box-sizing: border-box;
+}
+
+.emotion-0 {
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #282a2b;
+}
+
+.emotion-0:hover {
+  color: #005ea6;
+}
+
+<div
+  className="emotion-2"
+>
+  <span
+    className="emotion-0 emotion-1"
+    color="colorText"
+    fontSize="fontSize30"
+  >
+    _hover text
+  </span>
+</div>
+`;
+
+exports[`pseudoProps should set an _after pseudo property 1`] = `
+.emotion-2 {
+  font-family: 'Whitney SSm A','Whitney SSm B','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #282a2b;
+  font-weight: 400;
+}
+
+.emotion-2 *,
+.emotion-2 *::after,
+.emotion-2 *::before {
+  box-sizing: border-box;
+}
+
+.emotion-0 {
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: #282a2b;
+}
+
+.emotion-0:after {
+  content: "After text";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #032c5e;
+}
+
+<div
+  className="emotion-2"
+>
+  <span
+    className="emotion-0 emotion-1"
+    color="colorText"
+    fontSize="fontSize30"
+  >
+    _after text
+  </span>
+</div>
+`;
+
 exports[`textAlign should set a responsive textAlign property 1`] = `
 .emotion-2 {
   font-family: 'Whitney SSm A','Whitney SSm B','Helvetica Neue',Helvetica,Arial,sans-serif;

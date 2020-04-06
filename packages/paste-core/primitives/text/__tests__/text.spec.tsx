@@ -575,3 +575,47 @@ describe('textDecoration', () => {
     expect(tree).toMatchSnapshot();
   });
 });
+
+describe('pseudoProps', () => {
+  it('should set a color _hover pseudo property', (): void => {
+    const tree = renderer
+      .create(
+        <Theme.Provider theme="console">
+          <Text as="span" _hover={{color: 'colorTextLink'}}>
+            _hover text
+          </Text>
+        </Theme.Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should set an _after pseudo property', (): void => {
+    const tree = renderer
+      .create(
+        <Theme.Provider theme="console">
+          <Text
+            as="span"
+            _after={{content: `"After text"`, position: 'absolute', bottom: 0, right: 0, color: 'colorTextLinkDarker'}}
+          >
+            _after text
+          </Text>
+        </Theme.Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('should set a color _first pseudo property', (): void => {
+    const tree = renderer
+      .create(
+        <Theme.Provider theme="console">
+          <Text as="span" _first={{color: 'colorTextLink'}}>
+            _first text
+          </Text>
+        </Theme.Provider>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});
