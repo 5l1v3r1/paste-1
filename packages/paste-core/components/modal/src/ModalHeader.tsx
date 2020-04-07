@@ -6,7 +6,7 @@ import {Flex} from '@twilio-paste/flex';
 import {CloseIcon} from '@twilio-paste/icons/esm/CloseIcon';
 import {useModalContext} from './ModalContext';
 
-export interface ModalHeaderProps {
+export interface ModalHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
   children: NonNullable<React.ReactNode>;
 }
 const ModalHeader: React.FC<ModalHeaderProps> = ({children, ...props}) => {

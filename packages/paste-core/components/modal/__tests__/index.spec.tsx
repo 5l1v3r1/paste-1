@@ -1,172 +1,153 @@
 import * as React from 'react';
-import renderer from 'react-test-renderer';
+import {useUID} from 'react-uid';
 import {render} from 'react-dom';
-import {ReactWrapper, mount} from 'enzyme';
+import {render as testRender, fireEvent, cleanup} from '@testing-library/react';
 import {axe} from 'jest-axe';
 import {Theme} from '@twilio-paste/theme';
-import {Modal} from '../src';
+import {Button} from '@twilio-paste/button';
+import {Box} from '@twilio-paste/box';
+import {FormLabel, FormInput} from '@twilio-paste/form';
+import {Heading} from '@twilio-paste/heading';
+import {Paragraph} from '@twilio-paste/paragraph';
+import {Modal, ModalBody, ModalFooter, ModalFooterActions, ModalHeader, ModalHeading} from '../src';
 
-const onDismissMock: jest.Mock = jest.fn();
+const handleCloseMock: jest.Mock = jest.fn();
+
+const MockModal: React.FC<{children?: React.ReactNode}> = ({children}) => {
+  const modalHeadingID = `modal-${useUID()}`;
+  return (
+    <Theme.Provider theme="console">
+      <Modal
+        data-testid="modal"
+        aria-busy="true"
+        id="a-new-id"
+        ariaLabelledby={modalHeadingID}
+        isOpen
+        onDismiss={handleCloseMock}
+        size="default"
+      >
+        <ModalHeader data-testid="modal-header">
+          <ModalHeading as="h3" data-testid="modal-heading" id={modalHeadingID}>
+            Modal Heading
+          </ModalHeading>
+        </ModalHeader>
+        <ModalBody data-testid="modal-body">
+          <Heading as="h2" variant="heading40">
+            Test Content
+          </Heading>
+          <Paragraph>Custom modal body content.</Paragraph>
+          {children}
+        </ModalBody>
+        <ModalFooter>
+          <ModalFooterActions>
+            <Button variant="secondary" onClick={handleCloseMock}>
+              Cancel
+            </Button>
+            <Button variant="primary">Submit</Button>
+          </ModalFooterActions>
+        </ModalFooter>
+      </Modal>
+    </Theme.Provider>
+  );
+};
+
+const MockInitalFocusModal: React.FC<{}> = () => {
+  const [name, setName] = React.useState('');
+  const modalHeadingID = `modal-${useUID()}`;
+  const nameInputRef: React.RefObject<HTMLInputElement> = React.createRef();
+  const inputID = useUID();
+  return (
+    <Theme.Provider theme="console">
+      <Modal
+        data-testid="modal"
+        ariaLabelledby={modalHeadingID}
+        isOpen
+        onDismiss={handleCloseMock}
+        size="default"
+        initialFocusRef={nameInputRef}
+      >
+        <ModalHeader data-testid="modal-header">
+          <ModalHeading as="h3" data-testid="modal-heading" id={modalHeadingID}>
+            Modal Heading
+          </ModalHeading>
+        </ModalHeader>
+        <ModalBody data-testid="modal-body">
+          <Box as="form">
+            <FormLabel htmlFor={inputID}>Name</FormLabel>
+            <FormInput
+              id={inputID}
+              value={name}
+              ref={nameInputRef}
+              onChange={e => setName(e.currentTarget.value)}
+              type="text"
+            />
+          </Box>
+        </ModalBody>
+        <ModalFooter>
+          <ModalFooterActions>
+            <Button variant="secondary" onClick={handleCloseMock}>
+              Cancel
+            </Button>
+            <Button variant="primary">Submit</Button>
+          </ModalFooterActions>
+        </ModalFooter>
+      </Modal>
+    </Theme.Provider>
+  );
+};
 
 describe('Modal', () => {
-  // describe('Dismiss button', () => {
-  //   it('Should add a dismiss button when onDismiss is passed as a function to call', () => {
-  //     const eventHandlerMock: jest.Mock = jest.fn();
-  //     const wrapper: ReactWrapper = mount(
-  //       <Alert onDismiss={eventHandlerMock} variant="neutral">
-  //         This is an alert
-  //       </Alert>
-  //     );
-  //     expect(wrapper.find('button').length).toEqual(1);
-  //   });
-  //   it('Should call the onDismiss event handler when close button clicked', () => {
-  //     const eventHandlerMock: jest.Mock = jest.fn();
-  //     const wrapper: ReactWrapper = mount(
-  //       <Alert onDismiss={eventHandlerMock} variant="neutral">
-  //         This is an alert
-  //       </Alert>
-  //     );
-  //     wrapper.find('button').simulate('click');
-  //     expect(eventHandlerMock).toHaveBeenCalledTimes(1);
-  //   });
-  // });
-  // describe('Aria roles', () => {
-  //   it('Should add the role of status to the neutral alert', () => {
-  //     const wrapper: ReactWrapper = mount(<Alert variant="neutral">This is an alert</Alert>);
-  //     expect(wrapper.exists('[role="status"]')).toEqual(true);
-  //   });
-  //   it('Should add the role of alert to the error alert', () => {
-  //     const wrapper: ReactWrapper = mount(<Alert variant="error">This is an alert</Alert>);
-  //     expect(wrapper.exists('[role="alert"]')).toEqual(true);
-  //   });
-  //   it('Should add the role of alert to the warning alert', () => {
-  //     const wrapper: ReactWrapper = mount(<Alert variant="warning">This is an alert</Alert>);
-  //     expect(wrapper.exists('[role="alert"]')).toEqual(true);
-  //   });
-  //   it('Should add the provided role to the alert', () => {
-  //     const wrapper: ReactWrapper = mount(
-  //       <Alert role="tab" variant="error">
-  //         This is an alert
-  //       </Alert>
-  //     );
-  //     expect(wrapper.exists('[role="tab"]')).toEqual(true);
-  //   });
-  // });
-  // describe('Variant neutral', () => {
-  //   it('Should render a neutral alert', (): void => {
-  //     const tree = renderer
-  //       .create(
-  //         <Theme.Provider theme="console">
-  //           <Alert variant="neutral">This is an alert</Alert>
-  //         </Theme.Provider>
-  //       )
-  //       .toJSON();
-  //     expect(tree).toMatchSnapshot();
-  //   });
-  //   it('Should render a neutral alert with dismiss button', (): void => {
-  //     const tree = renderer
-  //       .create(
-  //         <Theme.Provider theme="console">
-  //           <Alert onDismiss={onDismissMock} variant="neutral">
-  //             This is an alert
-  //           </Alert>
-  //         </Theme.Provider>
-  //       )
-  //       .toJSON();
-  //     expect(tree).toMatchSnapshot();
-  //   });
-  //   it('Should have no accessibility violations', async () => {
-  //     const container = document.createElement('div');
-  //     document.body.append(container);
-  //     render(
-  //       <Theme.Provider theme="console">
-  //         <Alert variant="neutral">This is a neutral alert</Alert>
-  //         <Alert onDismiss={onDismissMock} variant="neutral">
-  //           This is a neutral alert
-  //         </Alert>
-  //       </Theme.Provider>,
-  //       container
-  //     );
-  //     const results = await axe(document.body);
-  //     expect(results).toHaveNoViolations();
-  //   });
-  // });
-  // describe('Variant error', () => {
-  //   it('Should render an error alert', (): void => {
-  //     const tree = renderer
-  //       .create(
-  //         <Theme.Provider theme="console">
-  //           <Alert variant="error">This is an error alert</Alert>
-  //         </Theme.Provider>
-  //       )
-  //       .toJSON();
-  //     expect(tree).toMatchSnapshot();
-  //   });
-  //   it('Should render an error alert with dismiss button', (): void => {
-  //     const tree = renderer
-  //       .create(
-  //         <Theme.Provider theme="console">
-  //           <Alert onDismiss={onDismissMock} variant="error">
-  //             This is an error alert
-  //           </Alert>
-  //         </Theme.Provider>
-  //       )
-  //       .toJSON();
-  //     expect(tree).toMatchSnapshot();
-  //   });
-  //   it('Should have no accessibility violations', async () => {
-  //     const container = document.createElement('div');
-  //     document.body.append(container);
-  //     render(
-  //       <Theme.Provider theme="console">
-  //         <Alert variant="error">This is a error alert</Alert>
-  //         <Alert onDismiss={onDismissMock} variant="error">
-  //           This is a error alert
-  //         </Alert>
-  //       </Theme.Provider>,
-  //       container
-  //     );
-  //     const results = await axe(document.body);
-  //     expect(results).toHaveNoViolations();
-  //   });
-  // });
-  // describe('Variant warning', () => {
-  //   it('Should render an warning alert', (): void => {
-  //     const tree = renderer
-  //       .create(
-  //         <Theme.Provider theme="console">
-  //           <Alert variant="warning">This is an warning alert</Alert>
-  //         </Theme.Provider>
-  //       )
-  //       .toJSON();
-  //     expect(tree).toMatchSnapshot();
-  //   });
-  //   it('Should render an warning alert with dismiss button', (): void => {
-  //     const tree = renderer
-  //       .create(
-  //         <Theme.Provider theme="console">
-  //           <Alert onDismiss={onDismissMock} variant="warning">
-  //             This is an warning alert
-  //           </Alert>
-  //         </Theme.Provider>
-  //       )
-  //       .toJSON();
-  //     expect(tree).toMatchSnapshot();
-  //   });
-  //   it('Should have no accessibility violations', async () => {
-  //     const container = document.createElement('div');
-  //     document.body.append(container);
-  //     render(
-  //       <Theme.Provider theme="console">
-  //         <Alert variant="warning">This is a warning alert</Alert>
-  //         <Alert onDismiss={onDismissMock} variant="warning">
-  //           This is a warning alert
-  //         </Alert>
-  //       </Theme.Provider>,
-  //       container
-  //     );
-  //     const results = await axe(document.body);
-  //     expect(results).toHaveNoViolations();
-  //   });
-  // });
+  it('should have the correct accessibility attributes on the container', () => {
+    const {getByTestId} = testRender(<MockModal />);
+    expect(getByTestId('modal').getAttribute('role')).toEqual('dialog');
+    expect(getByTestId('modal').getAttribute('aria-modal')).toEqual('true');
+    cleanup();
+  });
+
+  it('should be labelled by the correct heading', () => {
+    const {getByTestId} = testRender(<MockModal />);
+    expect(getByTestId('modal').getAttribute('aria-labelledby')).toEqual(
+      getByTestId('modal-heading').getAttribute('id')
+    );
+    cleanup();
+  });
+
+  it('should be be able to take arbitrary html attributes on the container', () => {
+    const {getByTestId} = testRender(<MockModal />);
+    expect(getByTestId('modal').getAttribute('aria-busy')).toEqual('true');
+    expect(getByTestId('modal').getAttribute('id')).toEqual('a-new-id');
+    cleanup();
+  });
+
+  it('should focus on the first focusable element in the modal, the close button', () => {
+    const {getByTestId} = testRender(<MockModal />);
+    expect(document.activeElement).toEqual(getByTestId('modal-header').querySelector('button'));
+    cleanup();
+  });
+
+  it('should focus on the element provided as the initialFocus element in the modal', () => {
+    const {getByTestId} = testRender(<MockInitalFocusModal />);
+    expect(document.activeElement).toEqual(getByTestId('modal-body').querySelector('input'));
+    cleanup();
+  });
+
+  it('should call the onDismiss function when the close button is clicked', () => {
+    const {getByTestId} = testRender(<MockModal />);
+    fireEvent.click(getByTestId('modal-header').querySelector('button'));
+    expect(handleCloseMock).toHaveBeenCalled();
+    cleanup();
+  });
+
+  it('Should have no accessibility violations', async () => {
+    const container = document.createElement('div');
+    document.body.append(container);
+    render(<MockModal />, container);
+    const results = await axe(document.body, {
+      rules: {
+        // ignore the tabindex of the focus trap helper
+        tabindex: {enabled: false},
+      },
+    });
+    expect(results).toHaveNoViolations();
+  });
 });

@@ -46,7 +46,7 @@ const ModalDialogContainer = styled(ModalDialogPrimitiveContent)<ModalDialogCont
   })
 );
 
-export interface ModalProps {
+export interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
   children: NonNullable<React.ReactNode>;
   isOpen: boolean;
   onDismiss: () => void;
@@ -64,6 +64,7 @@ const Modal: React.FC<ModalProps> = ({
   initialFocusRef,
   ariaLabelledby,
   size,
+  ...props
 }) => {
   return (
     <ModalDialogOverlay
@@ -73,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({
       initialFocusRef={initialFocusRef}
     >
       <ModalContext.Provider value={{onDismiss}}>
-        <ModalDialogContainer as="section" aria-labelledby={ariaLabelledby} size={size}>
+        <ModalDialogContainer aria-labelledby={ariaLabelledby} {...props} className={null} style={null} size={size}>
           {children}
         </ModalDialogContainer>
       </ModalContext.Provider>

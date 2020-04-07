@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {Box, safelySpreadBoxProps} from '@twilio-paste/box';
 
-export interface ModalFooterProps {
+export interface ModalFooterProps extends React.HTMLAttributes<HTMLDivElement> {
   children: NonNullable<React.ReactNode>;
 }
 const ModalFooter: React.FC<ModalFooterProps> = ({children, ...props}) => {

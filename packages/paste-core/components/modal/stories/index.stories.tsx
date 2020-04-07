@@ -12,18 +12,16 @@ import {Modal, ModalBody, ModalFooter, ModalFooterActions, ModalHeader, ModalHea
 type ModalTriggerProps = Pick<ModalProps, 'size'>;
 const ModalTrigger: React.FC<ModalTriggerProps> = ({size}) => {
   const [isOpen, setIsOpen] = React.useState(true);
-  const [name, setName] = React.useState('');
   const handleOpen = (): void => setIsOpen(true);
   const handleClose = (): void => setIsOpen(false);
   const modalHeadingID = useUID();
-  const inputID = useUID();
 
   return (
     <div>
       <Button variant="primary" onClick={handleOpen}>
         Open Modal
       </Button>
-      <Modal ariaLabelledby={modalHeadingID} isOpen={isOpen} onDismiss={handleClose} size={size}>
+      <Modal ariaLabelledby={modalHeadingID} isOpen={isOpen} onDismiss={handleClose} size={size} data-testid="foo">
         <ModalHeader>
           <ModalHeading as="h3" id={modalHeadingID}>
             Modal Heading
@@ -58,11 +56,9 @@ storiesOf('Components|Modal', module)
   })
   .add('footer actions', () => {
     const [isOpen, setIsOpen] = React.useState(true);
-    const [name, setName] = React.useState('');
     const handleOpen = (): void => setIsOpen(true);
     const handleClose = (): void => setIsOpen(false);
     const modalHeadingID = useUID();
-    const inputID = useUID();
 
     return (
       <div>
@@ -95,11 +91,9 @@ storiesOf('Components|Modal', module)
   })
   .add('left aligned footer actions', () => {
     const [isOpen, setIsOpen] = React.useState(true);
-    const [name, setName] = React.useState('');
     const handleOpen = (): void => setIsOpen(true);
     const handleClose = (): void => setIsOpen(false);
     const modalHeadingID = useUID();
-    const inputID = useUID();
 
     return (
       <div>
@@ -132,11 +126,9 @@ storiesOf('Components|Modal', module)
   })
   .add('directional footer actions', () => {
     const [isOpen, setIsOpen] = React.useState(true);
-    const [name, setName] = React.useState('');
     const handleOpen = (): void => setIsOpen(true);
     const handleClose = (): void => setIsOpen(false);
     const modalHeadingID = useUID();
-    const inputID = useUID();
 
     return (
       <div>
